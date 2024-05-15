@@ -1,4 +1,4 @@
-# appkube-ecommerce-sui
+# promodeagro-ecommerce-sui
 A comprehensive and scalable e-commerce platform designed to simplify online retail operations. This README.md file provides an overview of the platform, its features, installation guidelines, usage instructions, contribution guidelines, and licensing information.
 
 ## Table of Contents
