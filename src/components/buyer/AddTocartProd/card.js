@@ -56,7 +56,7 @@ const Card = () => {
     });
   };
 
-  if (cartItemsFromStorage.length === 0) {
+  if (!cartItemsFromStorage || cartItemsFromStorage.length === 0) {
     return (
       <div className="empty-cart mt-5 mb-5">
         <div className="flex gap-5 mb-2 justify-evenly">

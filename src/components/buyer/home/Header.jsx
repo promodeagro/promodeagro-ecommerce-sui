@@ -24,8 +24,9 @@ const Header = ({ onSearch }) => {
   const router = useRouter();
   const cartItems = useSelector(state => state.cartDetails.cart);
   const AddProductsintocart = useSelector(state => state.saveForLaterSlice.saveForLater);
-  const cartItemsFromStorage1 =localStorage.getItem('addcartitems');
-  const  cartItemsFromStorage= JSON.parse(cartItemsFromStorage1)
+  const cartItemsFromStorage1 = typeof window !== 'undefined' ? localStorage.getItem('addcartitems') : null;
+  const cartItemsFromStorage = cartItemsFromStorage1 ? JSON.parse(cartItemsFromStorage1) : [];
+  
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);

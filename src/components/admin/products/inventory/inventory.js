@@ -56,30 +56,33 @@ const Inventory = () => {
         console.log("Product IDs:", productIds);
   
         // Array to hold all fetched product data
+        const allProductData = [];
   
         // Fetch product data for each ID asynchronously using Promise.all
         await Promise.all(productIds.map(async (id) => {
           try {
             const productResult = await axios.get(`/product/${id}`);
             console.log("success", productResult.data);
-            // console.log("images", productResult.data);
             // Add fetched product data to the array
-            // setAllProductData(productResult.data)
             allProductData.push(productResult.data);
           } catch (error) {
             console.error("Error fetching product:", error);
           }
         }));
-
+  
         // Log all fetched product data
         console.log("All Product Data:", allProductData);
+  
+        // Set the allProductData state after fetching all products
+        setAllProductData(allProductData);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
   
     fetchData();
-  }, []);
+  }, [allProductData]); // Include allProductData in the dependency array
+  
 
   const showModalForEdit = (record) => {
     setOpen(true);
