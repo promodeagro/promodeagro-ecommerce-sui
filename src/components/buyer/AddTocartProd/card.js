@@ -12,8 +12,12 @@ import { addToSaveForLater } from "@/redux/slices/saveForLaterSlice";
 const Card = () => {
   const dispatch = useDispatch();
   const [productCounts, setProductCounts] = useState({});
-  const cartItemsFromStorage1 = localStorage.getItem('addcartitems');
-  const cartItemsFromStorage = JSON.parse(cartItemsFromStorage1);
+  // Check if localStorage is available before using it, reference error:localStorage is not defined. This error typically occurs when code that relies on the 
+  //localStorage object is executed in an environment where localStorage is not available, such as server-side rendering 
+  //or when running in a Node.js environment.
+  const cartItemsFromStorage1 = typeof window !== 'undefined' ? localStorage.getItem('addcartitems') : null;
+  const cartItemsFromStorage = cartItemsFromStorage1 ? JSON.parse(cartItemsFromStorage1) : [];
+
 
   const updateCount = (id, newCount) => {
     if (newCount < 0) {
@@ -56,7 +60,7 @@ const Card = () => {
     });
   };
 
-  if (cartItemsFromStorage.length === 0) {
+  if (!cartItemsFromStorage || cartItemsFromStorage.length === 0) {
     return (
       <div className="empty-cart mt-5 mb-5">
         <div className="flex gap-5 mb-2 justify-evenly">
