@@ -91,4 +91,3 @@ The E-commerce Platform is built using a modular and scalable architecture. It u
 For a detailed overview of the architecture, please refer to the [ARCHITECTURE.md](ARCHITECTURE.md) file.
 
 Feel free to explore and enhance the platform according to your business requirements!
-
