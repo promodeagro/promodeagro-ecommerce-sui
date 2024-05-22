@@ -64,6 +64,13 @@ Make sure you have the following installed:
    git clone https://github.com/Full-Stack-Developerz/ecommerce.git
    cd ecommerce
 
+2. Navigate to the UI directory:
+   cd ui
+   npm install
+   npm run build
+   
+This addition clarifies that the `out` folder will be generated in the root directory of the project after the build process is finished.
+
 ## Usage
 Once the platform is installed, you can access the admin dashboard, seller dashbaord, manage products, orders, and users. Customers can browse products, add them to the cart, and complete the checkout process.
 
