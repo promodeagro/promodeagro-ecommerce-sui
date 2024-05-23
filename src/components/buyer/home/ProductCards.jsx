@@ -9,21 +9,13 @@ import { addToCart, removeFromCart } from '@/redux/slices/CartSlice';
 import { addToSaveForLater, removeSave } from '@/redux/slices/saveForLaterSlice';
 import { notification } from 'antd';
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
-<<<<<<< HEAD
 import { remove } from "@/redux/slices/CartSlice";
-import { removeSave } from "@/redux/slices/saveForLaterSlice";
-=======
->>>>>>> b604c197c7fafda211a27d26509eab2d5fdd947d
+// import { removeSave } from "@/redux/slices/saveForLaterSlice";
 
 const ProductCards = ({ data, searchQuery }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [saveItem, setSaveItem] = useState(false);
   const dispatch = useDispatch();
-<<<<<<< HEAD
-=======
-
-  // Function to add item to cart and local storage
->>>>>>> b604c197c7fafda211a27d26509eab2d5fdd947d
   const cartAdd = (data) => {
     dispatch(addToCart(data));
     setAddedToCart(true);
@@ -35,11 +27,6 @@ const ProductCards = ({ data, searchQuery }) => {
     // Update local storage with the updated cart items array
     localStorage.setItem('addcartitems', JSON.stringify(updatedCartItems));
   };
-<<<<<<< HEAD
-=======
-
-  // Function to remove item from save for later and local storage
->>>>>>> b604c197c7fafda211a27d26509eab2d5fdd947d
   const removeFromSave = (id) => {
     dispatch(removeSave(id));
     setSaveItem(false);
@@ -49,15 +36,8 @@ const ProductCards = ({ data, searchQuery }) => {
     const updatedCartItems = cartItemsFromStorage.filter(item => item.id !== id);
     localStorage.setItem('addcartitems', JSON.stringify(updatedCartItems));
   };
-<<<<<<< HEAD
   const removeToCart = (data) => {
     dispatch(remove(data));
-=======
-
-  // Function to remove item from cart and local storage
-  const removeToCart = (id) => {
-    dispatch(removeFromCart(id));
->>>>>>> b604c197c7fafda211a27d26509eab2d5fdd947d
     setAddedToCart(false);
 
     // Remove the item from local storage
