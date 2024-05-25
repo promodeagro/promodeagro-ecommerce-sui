@@ -6,16 +6,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '@/redux/slices/CartSlice';
-import { addToSaveForLater, removeSave } from '@/redux/slices/saveForLaterSlice';
+import { addToSaveForLater, removeFromSave } from '@/redux/slices/saveForLaterSlice';
 import { notification } from 'antd';
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
-import { remove } from "@/redux/slices/CartSlice";
-// import { removeSave } from "@/redux/slices/saveForLaterSlice";
 
 const ProductCards = ({ data, searchQuery }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [saveItem, setSaveItem] = useState(false);
   const dispatch = useDispatch();
+
+  // Function to add item to cart and local storage
   const cartAdd = (data) => {
     dispatch(addToCart(data));
     setAddedToCart(true);
@@ -27,8 +27,10 @@ const ProductCards = ({ data, searchQuery }) => {
     // Update local storage with the updated cart items array
     localStorage.setItem('addcartitems', JSON.stringify(updatedCartItems));
   };
+
+  // Function to remove item from save for later and local storage
   const removeFromSave = (id) => {
-    dispatch(removeSave(id));
+    dispatch(removeFromSave(id));
     setSaveItem(false);
 
     // Remove the item from local storage
@@ -36,8 +38,10 @@ const ProductCards = ({ data, searchQuery }) => {
     const updatedCartItems = cartItemsFromStorage.filter(item => item.id !== id);
     localStorage.setItem('addcartitems', JSON.stringify(updatedCartItems));
   };
-  const removeToCart = (data) => {
-    dispatch(remove(data));
+
+  // Function to remove item from cart and local storage
+  const removeToCart = (id) => {
+    dispatch(removeFromCart(id));
     setAddedToCart(false);
 
     // Remove the item from local storage
@@ -45,6 +49,7 @@ const ProductCards = ({ data, searchQuery }) => {
     const updatedCartItems = cartItemsFromStorage.filter(item => item.id !== id);
     localStorage.setItem('addcartitems', JSON.stringify(updatedCartItems));
   };
+
   const saveForLater = (data) => {
     dispatch(addToSaveForLater(data));
     notification.success({
@@ -95,7 +100,7 @@ const ProductCards = ({ data, searchQuery }) => {
               />
             </button>
           )}
-             {addedToCart ? (
+          {addedToCart ? (
             <button className="p-1 md:p-2 border border-green-500 w-[70%] rounded-md" onClick={() => removeToCart(data.id)}>
               Remove from Cart
             </button>
