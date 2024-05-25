@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -63,7 +63,8 @@ export default function RootLayout({ children }) {
   };
 
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-
+  const isWidth300 = useMediaQuery({ maxWidth: 300 });
+  const isWidth400 = useMediaQuery({ maxWidth: 400 });
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {display && (
@@ -91,17 +92,26 @@ export default function RootLayout({ children }) {
             <h2 className="text-white uppercase">Synectiks</h2>
           </div>
           <div className="flex items-center">
-            <div className="md:flex  border rounded-md ml-6">
-              <Search
-                placeholder="input search text"
-                onSearch={onSearch}
-                style={{ width: 600 }}
-              />
-            </div>
+           
+          <Search
+    placeholder="input search text"
+    onSearch={onSearch}
+    style={{
+        width: isSmallScreen
+            ? "40vw" // For small screens
+            : isWidth300
+                ? "30vw" // For width less than 300
+                : isWidth400
+                    ? "35vw" // For width less than 400
+                    : "50vw" // Default width
+    }}
+/>
+            
           </div>
           <div className="flex items-center">
             <BellOutlined className="text-white text-lg" />
-            <Button className="text-black ml-2">My Store</Button>
+            <Button className="text-black ml-2" style={{ display: isSmallScreen ? "" : "block" }}>{isSmallScreen ? "MS" : "My Store"}</Button>
+
           </div>
         </Header>
       )}
@@ -115,7 +125,7 @@ export default function RootLayout({ children }) {
               onCollapse={(value) => setCollapsed(value)}
               style={{
                 overflow: "auto",
-                height: "100vh",
+                height: "100%",
                 position: "fixed",
                 left: 0,
                 top: 0,
@@ -143,7 +153,6 @@ export default function RootLayout({ children }) {
                   height: "100%",
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
                   zIndex: 1,
-                  
                 }}
                 onClick={toggleSidebar}
               />
@@ -156,9 +165,7 @@ export default function RootLayout({ children }) {
               {children}
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Footer Content
-          </Footer>
+          <Footer style={{ marginLeft: 200 }}></Footer>
         </Layout>
       </Layout>
     </Layout>
