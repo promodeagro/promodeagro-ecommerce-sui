@@ -78,20 +78,26 @@ export default function RootLayout({ children }) {
             justifyContent: "space-between",
             alignItems: "center",
             backgroundColor: "#1a1a1a",
+            padding:"0"
           }}
         >
           {isSmallScreen && (
-            <Button
-              type="text"
-              className="md:hidden text-white"
-              onClick={toggleSidebar}
-              icon={sidebarVisible ? <CloseOutlined /> : <MenuOutlined />}
-            />
+          
+          <Button
+          type="text"
+          className="text-white m-2"
+          onClick={toggleSidebar}
+          icon={sidebarVisible ? <CloseOutlined /> : <MenuOutlined />}
+        />
+        
+          
           )}
-          <div className="flex items-center">
+          <div className="flex items-center "
+                    style={{ margin: isSmallScreen ? "5px" : "30px" }}
+                    >
             <h2 className="text-white uppercase">Synectiks</h2>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center m-2">
            
           <Search
     placeholder="input search text"
@@ -108,9 +114,12 @@ export default function RootLayout({ children }) {
 />
             
           </div>
-          <div className="flex items-center">
-            <BellOutlined className="text-white text-lg" />
-            <Button className="text-black ml-2" style={{ display: isSmallScreen ? "" : "block" }}>{isSmallScreen ? "MS" : "My Store"}</Button>
+          <div className="flex items-center"
+                              style={{ margin: isSmallScreen ? "5px" : "30px" }}>
+            <BellOutlined className="text-white m-1 text-lg" />
+            <Button className="text-black m-2" style={{ display: isSmallScreen ? "" : "block", 
+            
+            }}>{isSmallScreen ? "MS" : "My Store"}</Button>
 
           </div>
         </Header>
