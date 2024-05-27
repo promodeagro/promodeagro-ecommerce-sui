@@ -9,6 +9,8 @@ import Link from "next/link"
 //import { Radio } from 'antd';
 // import { useDispatch } from "react-redux";
 import axios from "@/Api/axios";
+import { useMediaQuery } from 'react-responsive';
+
 // import { fetchcustomer } from "@/Api/fetchingcustomers";
 
 // import useFetchCustomers from "@/components/customHooks/useFetchCustomers";
@@ -17,6 +19,8 @@ import axios from "@/Api/axios";
 
 
 const Customer = () => {
+  const isWidth300 = useMediaQuery({ maxWidth: 300 });
+  const isWidth400 = useMediaQuery({ maxWidth: 400 });
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedData, setEditedData] = useState({});
   // const [selectedRows, setselectedRows] = useState([]);
@@ -324,7 +328,7 @@ const columns = [
             style={{
               backgroundColor: "#E3E3E3",
               borderRadius: "5px",
-              padding: "8px 15px 8px 15px",
+              padding: isWidth400 ? "5px" : "8px 15px 8px 15px"
             }}
             onClick={showModal}
           >
@@ -335,7 +339,9 @@ const columns = [
           <button
             key="link"
           
-            className="bg-black text-white rounded-md px-8 py-2 mr-3"
+            className="bg-black text-white rounded-md 
+            " style={{ padding: isWidth400 ? "5px" : "8px 15px 8px 15px"
+          }}
             loading={loading}
             onClick={AddCustomers}
           >
