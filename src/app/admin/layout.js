@@ -118,6 +118,7 @@ export default function RootLayout({ children }) {
                               style={{ margin: isSmallScreen ? "5px" : "30px" }}>
             <BellOutlined className="text-white m-1 text-lg" />
             <Button className="text-black m-2" style={{ display: isSmallScreen ? "" : "block", 
+            padding:isWidth300? "0px": "5px 10px"
             
             }}>{isSmallScreen ? "MS" : "My Store"}</Button>
 

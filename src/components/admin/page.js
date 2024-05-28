@@ -4,6 +4,8 @@ import { Space } from "antd";
 import pro from "./images/product.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useMediaQuery } from 'react-responsive';
+
 
 const Home = () => {
   const router = useRouter();
@@ -11,10 +13,14 @@ const Home = () => {
   const AddProducts = () => {
     router.push("/admin/products/addproduct");
   };
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+
 
   return (
     <div>
-      <div className="m-auto w-[70%] p-4">
+      <div className="m-auto w-[70%] p-4"
+                          style={{ width: isSmallScreen ? "100%" : "70%" }}
+                          >
         <h1 className="text-2xl font-bold">Get ready To sell</h1>
 
         <p className="mt-2 mb-5">
@@ -33,13 +39,13 @@ const Home = () => {
               <div className="rounded-lg w-32 border h-[25px] text-center">
                 0 / 6 completed
               </div>
-              <div className="hover:bg-gray-100 hover:w-[600px] hover:h-auto p-4 hover:rounded-lg md:w-[300px] sm:w-[250px] xl:w-[600px]">
+              <div className="hover:bg-gray-100 hover:w-full hover:h-auto p-4 hover:rounded-lg">
                 <p className="hover:bg-gray-100 hover:w-full hover:h-[30%] hover:rounded-lg hover:cursor-pointer  font-semibold text-gray-800">
                   Add Your First Product
                 </p>
                 <p>
-                  Write a description, add photos, and set pricing for the
-                  products you plan to sell
+                  Write a description, add photos, and set pricing for the  products you plan to sell
+                 
                 </p>
                 <button
                   onClick={AddProducts}
@@ -48,7 +54,7 @@ const Home = () => {
                   Add Product{" "}
                 </button>
                 <div className="flex float-end">
-                  <Image src={pro} alt="product" height={100} width={100} />
+                  {/* <Image src={pro} alt="product" height={100} width={100} /> */}
                 </div>
                 <div className="hover:cursor-pointer mt-3">
                 </div>
