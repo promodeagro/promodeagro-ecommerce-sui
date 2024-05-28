@@ -5,7 +5,7 @@ import { FaRupeeSign } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
-import { addToCart, removeFromCart } from '@/redux/slices/CartSlice';
+import { addToCart, remove } from '@/redux/slices/CartSlice';
 import { addToSaveForLater, removeFromSave } from '@/redux/slices/saveForLaterSlice';
 import { notification } from 'antd';
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
