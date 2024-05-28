@@ -19,8 +19,10 @@ import { useMediaQuery } from 'react-responsive';
 
 
 const Customer = () => {
+  
   const isWidth300 = useMediaQuery({ maxWidth: 300 });
   const isWidth400 = useMediaQuery({ maxWidth: 400 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedData, setEditedData] = useState({});
   // const [selectedRows, setselectedRows] = useState([]);
@@ -255,7 +257,7 @@ const columns = [
     title: "Customer name",
     dataIndex: "name",
     key: "name",
-    width: 40, // Adjust the width as needed
+    width: isSmallScreen? 10:40 , // Adjust the width as needed
     render: (name,record) =>(
     <Link 
     href={{
@@ -272,20 +274,20 @@ const columns = [
     title: "Phone",
     dataIndex: "phone",
     key: "phone",
-    width: 30, // Adjust the width as needed
+    width: isSmallScreen? 7:30 , // Adjust the width as needed
     render: (phone) => `${phone}`,
   },
   {
     title: "ID",
     dataIndex: "id",
     key: "id",
-    width: 50, // Adjust the width as needed
+    width: isSmallScreen?5:50, // Adjust the width as needed
     render: (id) => `${id}`,
   },
   {
     title: "Action",
     key: "action",
-    width: 30,
+    width: isSmallScreen? 10:30 ,
     align: "center", // Align the title in the center
     
     render: (text, record) => (
@@ -328,7 +330,7 @@ const columns = [
             style={{
               backgroundColor: "#E3E3E3",
               borderRadius: "5px",
-              padding: isWidth400 ? "5px" : "8px 15px 8px 15px"
+             padding: isSmallScreen ? "5px" : isWidth300?"0px" :"8px 15px"
             }}
             onClick={showModal}
           >
@@ -340,7 +342,8 @@ const columns = [
             key="link"
           
             className="bg-black text-white rounded-md 
-            " style={{ padding: isWidth400 ? "5px" : "8px 15px 8px 15px"
+            " style={{ padding: isSmallScreen ? "5px" : isWidth300?"0px" :"8px 15px"
+            
           }}
             loading={loading}
             onClick={AddCustomers}
@@ -477,7 +480,7 @@ const columns = [
         columns={columns}
         dataSource={customers}
         pagination={false}
-        scroll={{ x: 1000, y: 900 }}
+        scroll={{ x: 0, y: 1000 }}
          className="mt-5 mr-3"
       />
     </>

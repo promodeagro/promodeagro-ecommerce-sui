@@ -95,7 +95,7 @@ export default function RootLayout({ children }) {
           <div className="flex items-center "
                     style={{ margin: isSmallScreen ? "5px" : "30px" }}
                     >
-            <h2 className="text-white uppercase">Synectiks</h2>
+            <h2 className="text-white uppercase">Promode</h2>
           </div>
           <div className="flex items-center m-2">
            
@@ -118,6 +118,7 @@ export default function RootLayout({ children }) {
                               style={{ margin: isSmallScreen ? "5px" : "30px" }}>
             <BellOutlined className="text-white m-1 text-lg" />
             <Button className="text-black m-2" style={{ display: isSmallScreen ? "" : "block", 
+            padding:isWidth300? "0px": "5px 10px"
             
             }}>{isSmallScreen ? "MS" : "My Store"}</Button>
 
