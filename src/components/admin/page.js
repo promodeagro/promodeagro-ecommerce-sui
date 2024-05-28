@@ -27,7 +27,7 @@ const Home = () => {
           Here’s a guide to get started. As your business grows, you’ll get
           fresh tips and insights here.
         </p>
-        <div className="rounded-xl w-[100%] xl:h-[600px] md:h-[800px] sm:h-[800px] bg-white p-10 border">
+        <div className="rounded-xl w-[100%] xl:h-[400px] md:h-[600px] sm:h-[700px] bg-white p-10 border">
           <div className="w-[100%]">
             <Space direction="vertical" size={12}>
               <h3 className="font-semibold text-[16px]">Setup guide</h3>
