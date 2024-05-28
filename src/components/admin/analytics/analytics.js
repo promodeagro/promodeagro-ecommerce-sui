@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 import { DatePicker, Space } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Link from "next/link"
+import { useMediaQuery } from 'react-responsive';
+
 
 const { RangePicker } = DatePicker;
 
+
 const App = () => {
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+  const isWidth300 = useMediaQuery({ maxWidth: 300 });
+  const isWidth400 = useMediaQuery({ maxWidth: 400 });
   const [selectedDateRange, setSelectedDateRange] = useState([]);
 
   const handleDateRangeChange = (dates) => {
@@ -29,9 +35,11 @@ const App = () => {
         </Space>
         <p>{selectedDateRange.length > 0 && `Compared From ${selectedDateRange[0].format('YYYY-MM-DD')} to ${selectedDateRange[1].format('YYYY-MM-DD')}`}</p>
       </div>
-      <div className="grid grid-cols-3">
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className={`grid ${isSmallScreen ? 'grid-cols-2' : 'grid-cols-3'} ${isWidth400 ? 'grid-cols-1' : 'grid-cols-3'}`}>
+
+
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%] ">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -51,7 +59,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0" align="center">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
@@ -63,8 +71,8 @@ const App = () => {
     </ResponsiveContainer>
       </div>
       
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -84,7 +92,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
@@ -95,8 +103,8 @@ const App = () => {
       </LineChart>
     </ResponsiveContainer>
       </div>
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -116,7 +124,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
@@ -127,8 +135,8 @@ const App = () => {
       </LineChart>
     </ResponsiveContainer>
       </div>
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -148,7 +156,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
@@ -159,8 +167,8 @@ const App = () => {
       </LineChart>
     </ResponsiveContainer>
       </div>
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -180,7 +188,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
@@ -191,8 +199,8 @@ const App = () => {
       </LineChart>
     </ResponsiveContainer>
       </div>
-      <div className="bg-white rounded-md border border-1 h-[500px] mt-2 w-[95%]">
-        <div className="grid grid-rows-4 gap-3 m-8">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+        <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>
         <Link href="/" className="text-blue-500">View report</Link>
@@ -212,7 +220,7 @@ const App = () => {
         </div>
 
         
-        <ResponsiveContainer height={200} width="100%" className="ml-0">
+        <ResponsiveContainer height={200} width="100%" className="pr-2">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
