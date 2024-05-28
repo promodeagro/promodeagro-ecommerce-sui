@@ -71,7 +71,7 @@ finally {
     requiredMark={false}
     labelAlign="left"
     labelCol={{
-      span: 4,
+      span: 5,
     }}
     className="w-[70%] m-auto justify-center">
       <Form.Item 

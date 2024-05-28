@@ -95,7 +95,7 @@ export default function RootLayout({ children }) {
           <div className="flex items-center "
                     style={{ margin: isSmallScreen ? "5px" : "30px" }}
                     >
-            <h2 className="text-white uppercase">Synectiks</h2>
+            <h2 className="text-white uppercase">Promode</h2>
           </div>
           <div className="flex items-center m-2">
            

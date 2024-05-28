@@ -10,9 +10,9 @@ const { RangePicker } = DatePicker;
 
 
 const App = () => {
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const isWidth300 = useMediaQuery({ maxWidth: 300 });
-  const isWidth400 = useMediaQuery({ maxWidth: 400 });
+  const isWidth200to399 = useMediaQuery({  minWidth:200,maxWidth: 399 });
+  const isWidth400to766 = useMediaQuery({ minWidth: 400, maxWidth: 767 });
+
   const [selectedDateRange, setSelectedDateRange] = useState([]);
 
   const handleDateRangeChange = (dates) => {
@@ -35,8 +35,13 @@ const App = () => {
         </Space>
         <p>{selectedDateRange.length > 0 && `Compared From ${selectedDateRange[0].format('YYYY-MM-DD')} to ${selectedDateRange[1].format('YYYY-MM-DD')}`}</p>
       </div>
-      <div className={`grid ${isSmallScreen ? 'grid-cols-2' : 'grid-cols-3'} ${isWidth400 ? 'grid-cols-1' : 'grid-cols-3'}`}>
-
+      <div className={`grid ${
+      isWidth200to399 
+        ? 'grid-cols-1' 
+        : isWidth400to766 
+          ? 'grid-cols-2' 
+          : 'grid-cols-3'
+    }`}>
 
       <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%] ">
         <div className="grid grid-rows-4 gap-3 m-6">
