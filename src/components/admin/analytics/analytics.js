@@ -76,7 +76,7 @@ const App = () => {
     </ResponsiveContainer>
       </div>
       
-      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%]">
+      <div className="bg-white rounded-md border border-1 h-[450px] mt-2 w-[95%] ">
         <div className="grid grid-rows-4 gap-3 m-6">
         <div className="flex justify-between">
         <h2 className="border-dashed border-b border-gray-400">Total Sales</h2>

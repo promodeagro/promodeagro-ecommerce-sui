@@ -50,29 +50,22 @@ const id = data.map((id => id.id));
 console.log("id of order",id)
 
 useEffect(() => {
-  const fetchData = async (orderId) => {
-    if (!orderId) {
-      return; // If orderId is null or undefined, return early
-    }
-
-    console.log("orderId inside useEffect", orderId);
+  const fetchData = async (id) => {
+    console.log("id inside useEffect",id)
     try {
-      const result = await axios.get(`/getOrderById/${orderId}`);
+      const result = await axios.get(`/getOrderById/${id}`);
       console.log("order", result);
-      console.log("ids", result.data);
+      console.log("ids",result.data)
       // const items = result.data.map((item => item.items))
-      // console.log("items", items)
+      // console.log("items",items)
       // dispatch(saveOrdersList(result.data)); // save fetched data in Redux store
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error('Error fetching orders:', error);
     }
   };
-
+  
   fetchData(id);
-}, [id, dispatch]);
-
-
-
+}, [dispatch]);
 
   const statusToStepIndex = {
     'PENDING': 0, 
