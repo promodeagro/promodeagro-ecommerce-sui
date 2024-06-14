@@ -44,6 +44,29 @@ const Orders = () => {
     putRequest(editedData);
     setOpenEditModal(false);
   };
+  const CustomerNameColumn = ({ customerId }) => {
+    const [customerName, setCustomerName] = useState('');
+  
+    useEffect(() => {
+      const fetchCustomerDetails = async () => {
+        try {
+          const response = await axios.get(`/getCustomerById/${customerId}`);
+          setCustomerName(response.data.name); // Assuming the response has a 'name' field
+        } catch (error) {
+          console.error('Error fetching customer details:', error);
+        }
+      };
+  
+      if (customerId) {
+        fetchCustomerDetails();
+      }
+    }, [customerId]);
+    return (
+      <span className="text-xs">
+        {customerName || 'No customer linked with this order'} {/* Display 'Loading...' if customerName is not yet set */}
+      </span>
+    );
+  };
 
   const putRequest = async (values) => {
     let data = {
@@ -100,7 +123,7 @@ const Orders = () => {
       dataIndex: 'id',
       className: 'text-xs', 
       render: (text, record) => (
-      //  <span onClick={()=>HandlePush(record)}>{text}</span>
+      
       <Link
   href={{
     pathname: '/admin/orders/summary',
@@ -122,11 +145,12 @@ const Orders = () => {
     },
     {
       title: 'Customer Name',
-      className: 'text-xs', 
-      dataIndex: 'customerName',
-      key: "customerName",
-      render: (customerName) => `${customerName}`,
+      className: 'text-xs',
+      dataIndex: 'customerId',
+      key: 'customerId',
+      render: (customerId) => <CustomerNameColumn customerId={customerId} />,
     },
+        
     {
       title: 'Total Price',
       className: 'text-xs', 
