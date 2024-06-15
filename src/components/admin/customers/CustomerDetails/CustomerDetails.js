@@ -46,6 +46,10 @@ const CustomerDetails = () => {
                 title="Name"
                 description={item.name}
               />
+               <List.Item.Meta
+                title="phone"
+                description={item.phone}
+              />
               <List.Item.Meta
                 title="Customer Created At"
                 description={item.createdAt}

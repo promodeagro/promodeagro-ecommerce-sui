@@ -48,7 +48,7 @@ const Orders = () => {
     const [customerName, setCustomerName] = useState('');
   
     useEffect(() => {
-      const fetchCustomerDetails = async () => {
+      const fetchCustomerDetails = async (customerId) => {
         try {
           const response = await axios.get(`/getCustomerById/${customerId}`);
           setCustomerName(response.data.name); // Assuming the response has a 'name' field
@@ -58,7 +58,7 @@ const Orders = () => {
       };
   
       if (customerId) {
-        fetchCustomerDetails();
+        fetchCustomerDetails(customerId);
       }
     }, [customerId]);
     return (
