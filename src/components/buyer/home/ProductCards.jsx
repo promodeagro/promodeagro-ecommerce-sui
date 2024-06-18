@@ -66,18 +66,20 @@ const ProductCards = ({ data, searchQuery }) => {
             href={{
               pathname: '/buyer/product',
               query: { id: data.id },
+          
             }}
           >
-            <Image
-              src={data.image}
-              width={100}
-              height={100}
-              loading="lazy"
-              style={{ width: 'auto', height: 'auto' }}
-              alt="product image"
-              unoptimized
-              className="rounded-md"
-            />
+           <Image
+             src={data.image}
+             width={100}
+             height={100}
+             loading="lazy"
+             alt="product image"
+             unoptimized
+             className="rounded-md"
+             priority
+             style={{ width: 'auto', height: 'auto' }}/>
+
           </Link>
         </div>
         <div className="text-lg font-semibold flex m-1 justify-center items-center">

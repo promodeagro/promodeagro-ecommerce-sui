@@ -5,7 +5,7 @@ import { Button, Input, Space, Table, Tag, Modal,Form, Popconfirm, Radio } from 
 import Highlighter from "react-highlight-words";
 import ImportButton from "./importButton";
 import { useRouter } from "next/navigation";
-import Link from "next/link"
+import Link from "next/link";
 //import { Radio } from 'antd';
 // import { useDispatch } from "react-redux";
 import axios from "@/Api/axios";
@@ -76,8 +76,6 @@ const Customer = () => {
     }
   };
   
-
-
   const handleCancelForEdit = () => {
     setOpenEditModal(false);
   };
@@ -118,7 +116,6 @@ const Customer = () => {
     }
   };
   
-
   const router = useRouter();
   const AddCustomers = ()=>{
    
@@ -142,7 +139,6 @@ const Customer = () => {
   const handleCancel = () => {
     setOpen(false);
   };
-
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();

@@ -1,7 +1,6 @@
 import Footer from "@/components/buyer/home/Footer";
-import Header from "@/components/buyer/home/Header";
+//import Header from "@/components/buyer/home/Header";
 import MyBasket from "@/components/buyer/home/MyBasket";
-import Image from "next/image";
 
 export default function Home() {
   return (

@@ -35,8 +35,6 @@ OrderInfo = () => {
   //   fetchOrders();
   // },[dispatch]);
 
-
-
   const orders = useSelector((state) => state.ordersData.ordersList);
   console.log(orders, "coming from redux");
 
@@ -71,9 +69,6 @@ useEffect(() => {
   fetchData(id);
 }, [id, dispatch]);
 
-
-
-
   const statusToStepIndex = {
     'PENDING': 0, 
     'CONFIRMED': 1, 
@@ -88,7 +83,6 @@ useEffect(() => {
       console.log("Deleting customer");
       const response = await axios.delete(`/deleteCustomerById/${id}`);
       console.log("Success", response);
-      // Remove the deleted customer from the state
       setcustomers(customers.filter(customer => customer.id !== id));
     } catch (error) {
       console.log("Error deleting customer", error);
@@ -193,7 +187,6 @@ useEffect(() => {
                 <div className="bg-slate-50 flex justify-end h-full w-full"> {/* Use flex justify-end */}
     <button
       className="text-gray-500 font-semibold h-6 w-12  mt-4 mb-4 mr-3"
-      //onClick={handlePostComment}
       style={{
         backgroundColor: "#E3E3E3",
         borderRadius: "5px",

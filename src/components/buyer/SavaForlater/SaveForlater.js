@@ -35,7 +35,9 @@ const SaveForlater = () => {
             </Button>
           </Link>
         </div>
-        <Image src={empty} height={500} width={500} alt="image" />
+        <Image src={empty} height={500} width={500} alt="image"  
+         priority
+          style={{ width: 'auto', height: 'auto' }}/>
         
       </div>
     );
@@ -46,7 +48,9 @@ const SaveForlater = () => {
       return (
         <div className="empty-cart mt-5 mb-5">
           {/* <ShoppingCartOutlined style={{ fontSize: '500px', color: '#ccc' }} /> */}
-          <Image src={empty} height={500} width={500} alt="image"></Image>
+          <Image src={empty} height={500} width={500} alt="image"   
+          priority
+          style={{ width: 'auto', height: 'auto' }}></Image>
           <div className="flex gap-5">
           <h1 className="text-lg font-bold">Add some items to save for later</h1>
           <Link href="/">
@@ -77,7 +81,9 @@ const SaveForlater = () => {
             className="w-[100%] h-48 object-cover p-3"
             alt="product"
             width={100}
-            height={100}
+            height={100} 
+            priority
+            style={{ width: 'auto', height: 'auto' }}
           />
         </figure>
         <div className="p-6 flex flex-col justify-between">

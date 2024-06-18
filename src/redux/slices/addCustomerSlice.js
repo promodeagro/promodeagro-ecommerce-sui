@@ -1,7 +1,4 @@
 // import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-
-
 // export const createCustomer = createAsyncThunk(
 //   'customer/addcustomer',
 //   async ({ name, phone }) => {
@@ -9,7 +6,6 @@
 //     return response.data; // Assuming your API returns data after creating the customer
 //   }
 // );
-
 // const customerSlice = createSlice({
 //   name: 'customer',
 //   initialState: {

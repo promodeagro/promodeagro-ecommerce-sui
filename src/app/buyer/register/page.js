@@ -6,13 +6,7 @@ const page = () => {
   return (
     <main className="flex justify-center items-center md:h-[90vh] md:mt-4 md:mb-2 min-h-[98vh] bg-white sm:bg-gradient-to-r sm:from-indigo-900 sm:via-indigo-700 sm:to-cyan-400">
       <div className="xs:mt-0 sm:border sm:border-solid sm:border-gray-500 sm:mt-0 sm:rounded-none xs:w-[100%] xs:h-[100%] md:w-[450px] md:h-[103%] md:mt-7 rounded-lg p-[20px]  bg-white  mb-4">
-        <div>
-          {" "}
-          <image
-            src="https://shopify-assets.shopifycdn.com/accounts/production/theme_configuration/logo/oauth_provider/merchant/logo.svg?v=1631025778 "
-            className="w-[100px]"
-          />
-        </div>
+
         <div>
           <h1 className=" xs:text-base text-xl font-bold mt-[1rem]  sm:text-bold xs:text-bold">
             Create a shopify Account
@@ -23,7 +17,7 @@ const page = () => {
         </div>
         <div>
           {/* <h1>Email</h1> */}
-          <label for="userMail">Email</label>
+          <label htmlFor="userMail">Email</label>
           <input
             type="text"
             id="userMail"
@@ -32,7 +26,7 @@ const page = () => {
           <div className="sm:flex justify-between mt-2">
             <div>
               {/* <p>First Name</p> */}
-              <label for="firstName">First Name</label>
+              <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
                 id="firstName"
@@ -41,7 +35,7 @@ const page = () => {
             </div>
             <div className="sm:ml-4 sm:mt-0 mt-2">
               {/* <p>last Name</p> */}
-              <label for="lastName" className="sm:ml-0 pt-3">
+              <label htmlFor="lastName" className="sm:ml-0 pt-3">
                 Last Name
                 <input
                   type="text"
@@ -57,7 +51,7 @@ const page = () => {
           </p>
           <div className="mt-3">
             {/* <p className='mt-3'>Password</p> */}
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="text"
               id="password"
@@ -66,7 +60,7 @@ const page = () => {
           </div>
           <div className="mt-2">
             {/* <p className='mt-3'>Confirm new Password</p> */}
-            <label for="confirm">Confirm new Password</label>
+            <label htmlFor="confirm">Confirm new Password</label>
             <input
               type="text"
               id="confirm"

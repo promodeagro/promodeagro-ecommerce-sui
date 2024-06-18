@@ -37,7 +37,6 @@ const productSlice = createSlice({
   //       state.error = action.error.message; // Handle error or update state if needed
   //     });
   // },
-});
-
+});   
 export const { setCreateProduct } = productSlice.actions;
 export default productSlice.reducer;

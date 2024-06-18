@@ -82,6 +82,8 @@ const Header = ({ onSearch }) => {
             alt="Logo"
             width={100}
             height={100}
+            priority
+            style={{ width: 'auto', height: 'auto' }}
           />
         </Link>
       </div>
@@ -131,7 +133,7 @@ const Header = ({ onSearch }) => {
           <FaBookmark className="font-bold text-lg  flex md:text-lg m-auto" onClick={saveForLater}/>
         </button>
         <div>
-          <Dropdown overlay={menu} trigger={['click']} open={isDropdownOpen} onVisibleChange={setIsDropdownOpen}>
+          <Dropdown menu={menu} trigger={['click']} open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
             <MdAccountCircle className="cursor-pointer" onClick={handleDropdown} />
           </Dropdown>
         </div>

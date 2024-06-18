@@ -7,9 +7,9 @@ import RootLayout from '../layout';
 const Page = () => {
   return (
     <RootLayout includeHeader={false}>
-      <Header /> {/* Include the Header component if needed */}
+      <Header /> 
       <MyBasket />
-      <Footer /> {/* Include the Footer component if needed */}
+      <Footer /> 
     </RootLayout>
   );
 };

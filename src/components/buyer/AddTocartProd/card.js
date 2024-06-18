@@ -74,7 +74,9 @@ const Card = () => {
             </Button>
           </Link>
         </div>
-        <Image src={empty} height={500} width={500} alt="image"></Image>
+        <Image src={empty} height={500} width={500} alt="image"
+         priority
+            style={{ width: 'auto', height: 'auto' }}></Image>
       </div>
     );
   }

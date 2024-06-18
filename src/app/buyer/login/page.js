@@ -45,31 +45,32 @@ const Page = () => {
           </h3>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="connect" className="text-[14px] xs:text-xs">
-            Email
-          </label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            id="connect"
-            placeholder="user email"
-            className="border border-solid border-gray-500 rounded p-2 mb-3 xs:p-1"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="connect" className="text-[14px] xs:text-xs">
-            Password
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            id="connect"
-            placeholder="user password"
-            className="border border-solid border-gray-500 rounded p-2 mb-2 xs:p-1"
-          />
-        </div>
+  <label htmlFor="email" className="text-[14px] xs:text-xs">
+    Email
+  </label>
+  <input
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    type="email"
+    id="email" 
+    placeholder="user email"
+    className="border border-solid border-gray-500 rounded p-2 mb-3 xs:p-1"
+  />
+</div>
+<div className="flex flex-col">
+  <label htmlFor="password" className="text-[14px] xs:text-xs">
+    Password
+  </label>
+  <input
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    id="password" 
+    placeholder="user password"
+    className="border border-solid border-gray-500 rounded p-2 mb-2 xs:p-1"
+  />
+</div>
+
 
         <button onClick={handleLogin} className="border border-solid bg-[#303030] border-gray-500 w-[100%] rounded p-2 text-white font-semibold xs:p-1">
           Log in
