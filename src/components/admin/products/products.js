@@ -700,7 +700,7 @@ const Products = () => {
         columns={columns}
         dataSource={products}
         pagination={false}
-        scroll={{ x: 800, y: 4000 }}
+        scroll={{ x: 0, y: 4000 }}
       />
     </div>
   );

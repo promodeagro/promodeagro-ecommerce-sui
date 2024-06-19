@@ -302,7 +302,7 @@ export const Share = () => {
       columns={columns}
       dataSource={customers}
       pagination={false}
-      scroll={{ x: 1000, y: 900 }}
+      scroll={{ x: 0, y: 900 }}
        className="mt-5"
     />
   </div>

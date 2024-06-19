@@ -8,10 +8,14 @@ import { useDispatch,useSelector } from 'react-redux';
 import { saveOrdersList } from '@/redux/slices/orderSlice';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-// import { data } from 'autoprefixer';
 import axios from "@/Api/axios";
+import { useMediaQuery } from 'react-responsive';
 
 const Orders = () => {
+  const isWidth300 = useMediaQuery({ maxWidth: 300 });
+  const isWidth400 = useMediaQuery({ maxWidth: 400 });
+  const isWidth600 = useMediaQuery({ maxWidth: 600 });
+
   const [editingOrders, setEditingOrders] = useState(null);
   const [editedData, setEditedData] = useState({});
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -39,6 +43,29 @@ const Orders = () => {
     setEditedData({});
     putRequest(editedData);
     setOpenEditModal(false);
+  };
+  const CustomerNameColumn = ({ customerId }) => {
+    const [customerName, setCustomerName] = useState('');
+  
+    useEffect(() => {
+      const fetchCustomerDetails = async (customerId) => {
+        try {
+          const response = await axios.get(`/getCustomerById/${customerId}`);
+          setCustomerName(response.data.name); // Assuming the response has a 'name' field
+        } catch (error) {
+          console.error('Error fetching customer details:', error);
+        }
+      };
+  
+      if (customerId) {
+        fetchCustomerDetails(customerId);
+      }
+    }, [customerId]);
+    return (
+      <span className="text-xs">
+        {customerName || 'No customer linked with this order'} {/* Display 'Loading...' if customerName is not yet set */}
+      </span>
+    );
   };
 
   const putRequest = async (values) => {
@@ -94,9 +121,9 @@ const Orders = () => {
     {
       title: 'Order',
       dataIndex: 'id',
-      // className: 'text-xs', 
+      className: 'text-xs', 
       render: (text, record) => (
-      //  <span onClick={()=>HandlePush(record)}>{text}</span>
+      
       <Link
   href={{
     pathname: '/admin/orders/summary',
@@ -111,61 +138,57 @@ const Orders = () => {
     },
     {
       title: 'Date',
-      // className: 'text-xs', 
+      className: 'text-xs', 
       dataIndex: 'createdAt',
       key: "createdAt",
       render: (createdAt) => `${createdAt}`,
     },
     {
       title: 'Customer Name',
-      // className: 'text-xs', 
-      dataIndex: 'customerName',
-      key: "customerName",
-      render: (customerName) => `${customerName}`,
+      className: 'text-xs',
+      dataIndex: 'customerId',
+      key: 'customerId',
+      render: (customerId) => <CustomerNameColumn customerId={customerId} />,
     },
+        
     {
       title: 'Total Price',
+      className: 'text-xs', 
       dataIndex: 'totalPrice',
       key: "totalPrice",
       render: (totalPrice) => `$${totalPrice}`,
     },
     {
       title: 'Payment Method',
-      // className: 'text-xs',   
+       className: 'text-xs',   
       dataIndex: 'paymentMethod',
       key: "paymentMethod",
       render: (paymentMethod) => `${paymentMethod}`,
     },
     {
       title: 'Order Status',
-      // className: 'text-xs',   
+      className: 'text-xs',   
       dataIndex: 'status',
       key: "status",
       render: (status) => `${status}`,
     },
-    // {
-    //   title: 'items',
-    //   // className: 'text-xs',   
-    //   dataIndex: 'items',
-    //   key: "items",
-    //   render: (items) => `${items}`,
-    // },
     {
       title: 'items',
-      // className: 'text-xs',   
+      className: 'text-xs',   
       dataIndex: 'items',
       key: "items",
       render: (items) => `${items.length}`,
     },
     {
       title: 'Last changed at',
-      // className: 'text-xs',   
+       className: 'text-xs',   
       dataIndex: '_lastChangedAt',
       key: "_lastChangedAt",
       render: (_lastChangedAt) => `${_lastChangedAt}`,
     },
     {
       title: "Action",
+      className: 'text-xs',   
       key: "action",
       width: "8%",
       render: (text, record) => (
@@ -228,7 +251,6 @@ const Orders = () => {
     fetchData();
   }, [dispatch]);
 
-
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -246,8 +268,6 @@ const Orders = () => {
       console.log("Deleting order");
       const response = await axios.delete(`/deleteOrderById/${id}`);
       console.log("Success", response);
-      // Remove the deleted customer from the state
-      //setcustomers(customers.filter(customer => customer.id !== id));
     } catch (error) {
       console.log("Error deleting order", error);
     }
@@ -315,7 +335,6 @@ const Orders = () => {
   </div>
 </Modal>
 <Modal
-          // title="Title"
           open={openEditModal}
           onCancel={handleCancelForEdit}
           footer={[
@@ -393,27 +412,26 @@ const Orders = () => {
               </Form.Item>
 </Form>
         </Modal>
-
     </>
           </div>
         </div>
 
-        <div className='bg-white rounded-xl h-16 border border-gray-200 flex items-center mb-4 mt-4 mr-1'>
-          <div className=' border-r w-32 justify-center flex'>
+        <div className={`bg-white rounded-xl h-16 border border-gray-200 flex items-center mb-4 mt-4 mr-1 ${isWidth600 ? 'flex-col h-auto p-4' : 'flex-row'}`}>
+          <div className=' lg:border-r w-32 justify-center flex'>
             <button className='rounded-lg w-28 hover:bg-gray-100 h-12  font-semibold flex justify-center items-center'>
               <div><InboxOutlined /> </div>Today
             </button>
           </div>
-          <div className=' border-r w-48 justify-center text-center'>
+          <div className=' lg:border-r w-48 justify-center text-center'>
             <button className='rounded-lg w-44 hover:bg-gray-100 h-12  font-semibold'>Total orders</button>
           </div>
-          <div className=' border-r w-48 justify-center text-center'>
+          <div className=' lg:border-r w-48 justify-center text-center'>
             <button className='rounded-lg w-44 hover:bg-gray-100 h-12  font-semibold'>Ordered items over time</button>
           </div>
-          <div className=' border-r w-48 justify-center text-center'>
+          <div className=' lg:border-r w-48 justify-center text-center'>
             <button className='rounded-lg w-44 hover:bg-gray-100 h-12  font-semibold'>Return</button>
           </div>
-          <div className=' border-r w-48 justify-center text-center'>
+          <div className=' lg:border-r w-48 justify-center text-center'>
             <button className='rounded-lg w-44 hover:bg-gray-100 h-12  font-semibold'>Fulfilled orders over time</button>
           </div>
           <div className='w-48 justify-center text-center'>
@@ -422,33 +440,47 @@ const Orders = () => {
         </div>
       </div>
 
-<div className='bg-white p-4 rounded-lg mr-3'>
-      <div className='gap-2 h-8'>
-      <button className={`rounded-lg w-10 text-xs font-semibold hover:bg-gray-100 ${filterOption === 'all' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('all')}>
-              All
-            </button>
-            <button className={`rounded-lg w-20 text-xs font-semibold hover:bg-gray-100 ${filterOption === 'pending' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('pending')}>
-              Pending
-            </button>
-            <button className={`rounded-lg  w-14 text-xs font-semibold hover:bg-gray-100 ${filterOption === 'upi' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('upi')}>
-              UPI
-            </button>
-        {/* <button className="rounded-lg  w-12 text-xs font-semibold hover:bg-gray-100">Open</button>
-        <button className="rounded-lg w-14 text-xs font-semibold hover:bg-gray-100">Closed</button>
-        <button className="rounded-lg w-24 text-xs font-semibold hover:bg-gray-100">Local Delivery</button>
-        <button className="rounded-lg w-6 text-xs font-semibold hover:bg-gray-100">+</button> */}
-      </div>
-        <Table
-          columns={columns}
-          dataSource={filteredOrders}
-          pagination={false}
-          // pagination={{
-          //   position: ['bottomCenter'], 
-          //   prevIcon: <Button type='link' className='custom-pagination-btn'>{`<`}</Button>,
-          //   nextIcon: <Button type='link' className='custom-pagination-btn'>{`>`}</Button>,
-          // }}
-        />
-      </div>
+      <div className='bg-white p-4 rounded-lg mr-3'>
+  <div className={`gap-2 lg:h-8 ${isWidth600 ? 'flex flex-col' : 'flex flex-row'}`}>
+    <button className={`rounded-lg ${isWidth600 ? 'w-full mb-2' : 'w-10'} text-xs font-semibold hover:bg-gray-100 ${filterOption === 'all' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('all')}>
+      All
+    </button>
+    <button className={`rounded-lg ${isWidth600 ? 'w-full mb-2' : 'w-20'} text-xs font-semibold hover:bg-gray-100 ${filterOption === 'pending' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('pending')}>
+      Pending
+    </button>
+    <button className={`rounded-lg ${isWidth600 ? 'w-full' : 'w-14'} text-xs font-semibold hover:bg-gray-100 ${filterOption === 'upi' ? 'bg-gray-100' : ''}`} onClick={() => handleFilterOptionChange('upi')}>
+      UPI
+    </button>
+  </div>
+  <div className='table-responsive'>
+    <Table
+      columns={columns}
+      dataSource={filteredOrders}
+      pagination={false}
+    />
+  </div>
+</div>
+
+<style jsx global>{`
+  .table-responsive {
+    overflow-x: auto;
+  }
+  @media (max-width: 600px) {
+    .table-responsive table {
+      width: 100%;
+      display: block;
+      overflow-x: auto;
+    }
+    .table-responsive thead, .table-responsive tbody {
+      display: block;
+    }
+    .table-responsive th, .table-responsive td {
+      display: block;
+      white-space: nowrap;
+    }
+  }
+`}</style>
+
         </>
     );
 };

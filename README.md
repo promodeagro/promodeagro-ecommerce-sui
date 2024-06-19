@@ -8,6 +8,7 @@ A comprehensive and scalable e-commerce platform designed to simplify online ret
     - [Buyer](#buyer)
 - [Features](#features)
 - [Installation](#installation)
+- [Building the UI](#building-the-ui)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -25,7 +26,6 @@ The E-commerce Platform is a robust solution for businesses looking to establish
 
 #### Seller Architecture
 ![Seller Architecture](url/to/image.jpg)
-
 
 ## Buyer (Customer)
 
@@ -49,6 +49,27 @@ Follow these steps to install the E-commerce Platform on your server:
 2. Navigate to the project directory: `cd ecommerce`
 3. Install dependencies: `npm install`
 4. Start the server: `npm run dev`
+
+## Building the UI
+To build the user interface (UI) of this project, follow these steps:
+
+### Prerequisites
+Make sure you have the following installed:
+- Node.js (version X.X.X or higher)
+- npm (version X.X.X or higher) or yarn (version X.X.X or higher)
+
+### Steps
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Full-Stack-Developerz/ecommerce.git
+   cd ecommerce
+
+2. Navigate to the UI directory:
+   cd ui
+   npm install
+   npm run build
+   
+This addition clarifies that the `out` folder will be generated in the root directory of the project after the build process is finished.
 
 ## Usage
 Once the platform is installed, you can access the admin dashboard, seller dashbaord, manage products, orders, and users. Customers can browse products, add them to the cart, and complete the checkout process.

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, message, Upload,Modal } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+
 const props = {
     name: 'file',
     action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
@@ -33,14 +35,17 @@ const ImportButton = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const isWidth300 = useMediaQuery({ maxWidth: 300 });
+  const isWidth400 = useMediaQuery({ maxWidth: 400 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   return (
     <>
       <button
         style={{
           backgroundColor: "#E3E3E3",
           borderRadius: "5px",
-          padding: "8px 15px 8px 15px",
+          padding: isSmallScreen ? "5px" : isWidth300?"0px" :"8px 15px"
+
         }}
         onClick={showModal}
       >

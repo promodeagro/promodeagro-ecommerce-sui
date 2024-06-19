@@ -28,15 +28,12 @@ const MyAccountPage = () => {
           </div>
           <div className="">
             <p className="font-semibold">
-<<<<<<< HEAD:src/components/buyer/myAccount/myAccount.js
               You &lsquo; placed any order yet{" "}
-=======
               You haven&apos;t placed any order yet{" "}
->>>>>>> b604c197c7fafda211a27d26509eab2d5fdd947d:src/components/buyer/myAccont/myAccount.js
               <Link href="/" passHref>
-                <a className="text-blue-500 hover:underline ml-1">
+                <button className="text-blue-500 hover:underline ml-1">
                   Start Shopping!
-                </a>
+                </button>
               </Link>
             </p>
           </div>
