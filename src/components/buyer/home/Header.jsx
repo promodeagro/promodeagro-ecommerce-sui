@@ -15,7 +15,9 @@ import { FaBookmark } from "react-icons/fa6";
 import { MdAccountCircle } from "react-icons/md";
 import { Dropdown, Menu, message, Modal, Button } from 'antd';
 import LogoutConfirmation from "../myAccount/logout/logout";
-
+import logo from "../images/leaf-green-svgrepo-com 1.png"
+import location from "../images/location-06.png"
+import customerSup from  "../images/headphones 1.png"
 const Header = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -58,6 +60,11 @@ const Header = ({ onSearch }) => {
     message.success('Logged out successfully');
     setLogoutModalVisible(false);
   };
+  const [language, setLanguage] = useState('English');
+
+  const handleChange = (event) => {
+    setLanguage(event.target.value);
+  };
 
   const menu = (
     <Menu>
@@ -74,21 +81,48 @@ const Header = ({ onSearch }) => {
   );
 
   return (
-    <header className="container-fluid flex justify-between items-center px-[5%] w-full h-[12vh] border-t-green-500 border-t-4 sticky top-0 bg-white z-10">
-      <div className="logo w-[20%] sm:w-[16%] lg:w-[10%]">
-        <Link href="/buyer/home">
+    <header className="container-fluid flex justify-between items-center w-full h-[11vh]  sticky top-0 bg-gray-100 z-10 mb-1 pl-32 pr-32">
+      <div className="flex font-bold">
+        {/* <Link href="/buyer/home"> */}
+          <h1>Promode</h1>
           <Image
-            src="https://asset.brandfetch.io/idIM18oaEt/idnUr2C08_.svg"
+            src={logo}
             alt="Logo"
             width={100}
             height={100}
             priority
             style={{ width: 'auto', height: 'auto' }}
           />
-        </Link>
+          <h1>Agro Farms</h1>
+        {/* </Link> */}
       </div>
-
-      <div className="searchbar container-fluid w-[60%] sm:w-[55%] md:w-[45%] lg:w-[40%] relative flex shadow-md">
+     <div className="flex gap-12">
+      <div className="flex font-semibold">
+        Customer Support 24/7
+        <Image
+            src={customerSup}
+            alt="Logo"
+            width={25}
+            height={20}
+          />
+      </div>
+      <div className="flex font-semibold">
+       Deliver to 
+       <Image
+            src={location}
+            alt="Logo"
+            width={20}
+            height={20}
+          />
+      </div>
+       <div className="font-semibold">
+      <select value={language} onChange={handleChange} className="dropdown bg-gray-100">
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+      </select>
+    </div>
+      </div> 
+      {/* <div className="searchbar container-fluid w-[60%] sm:w-[55%] md:w-[45%] lg:w-[40%] relative flex shadow-md">
         <input
           type="text"
           placeholder="Search for products"
@@ -145,7 +179,7 @@ const Header = ({ onSearch }) => {
         visible={logoutModalVisible}
         onCancel={handleCancelLogout}
         onConfirm={handleConfirmLogout}
-      />
+      /> */}
     </header>
   );
 };
