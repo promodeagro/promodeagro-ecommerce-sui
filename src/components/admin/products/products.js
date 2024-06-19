@@ -7,6 +7,7 @@ import {
   DeleteOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { notification } from 'antd';
 import {
   Button,
   Input,
@@ -130,6 +131,11 @@ const Products = () => {
       console.log("stored data", data);
       const response = await axios.put("/product", data);
       console.log("success", response);
+      if(response.status==200){
+        notification.success({
+          message: 'Product updated Successfully!',
+        });
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -653,6 +659,30 @@ const Products = () => {
                 >
                   <Option value="kg">KG</Option>
                   <Option value="piece">PIECE</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                label="Image Type"
+                // name="unit"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input image Type!",
+                  },
+                ]}
+              >
+                <Select
+                  className="rounded-md border-none"
+                  placeholder="Select a option for UNIT"
+                  value={editedData.imageType}
+                  onChange={(value) =>
+                    setEditedData({ ...editedData, imageType: value })
+                  }
+                  // name="unit"
+                  allowClear
+                >
+                  <Option value="image">image</Option>
+                  <Option value="png">png</Option>
                 </Select>
               </Form.Item>
             </Form>
