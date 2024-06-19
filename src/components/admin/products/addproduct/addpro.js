@@ -1,11 +1,8 @@
 "use client";
 import React, { useState } from "react";
-// import Status from "./status";
 import Link from "next/link";
-import { createProducts } from "../../../../redux/slices/addProductSlice";
 import { useDispatch } from "react-redux";
-import Image from 'next/image';
-
+import Image from "next/image";
 import {
   Form,
   Input,
@@ -17,33 +14,36 @@ import {
   DatePicker,
   Row,
 } from "antd";
-import { setCreateProduct } from "../../../../redux/slices/addProductSlice";
-import axios from "@/Api/axios";
 import {
   ArrowLeftOutlined,
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import axios from "@/Api/axios";
+import { setCreateProduct } from "@/redux/slices/addProductSlice";
 const { Option } = Select;
-//uploadimage code
+const { TextArea } = Input;
+
+// Function to convert file to base64
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
+
 const beforeUpload = (file) => {
-  const isPng = file.type === "image/png";
-  if (!isPng) {
-    message.error("You can only upload PNG file!");
+  const isPngOrJpeg = file.type === "image/png" || file.type === "image/jpeg";
+  if (!isPngOrJpeg) {
+    message.error("You can only upload PNG or JPEG files!");
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error("Image must be smaller than 2MB!");
   }
-  return isLt2M;
+  return isPngOrJpeg && isLt2M;
 };
-const { TextArea } = Input;
+
 const config = {
   rules: [
     {
@@ -52,10 +52,23 @@ const config = {
     },
   ],
 };
+
 const Addproduct = () => {
-  // image uploading code
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+  const [formData, setFormData] = useState({
+    availability: "",
+    brand: "",
+    category: "",
+    description: "",
+    image: null,
+    name: "",
+    price: "",
+    currency: "",
+    unit: "",
+    imageType: "",
+  });
+
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
       setLoading(true);
@@ -67,17 +80,13 @@ const Addproduct = () => {
         setImageUrl(url);
         const base64Data = url.split(",")[1];
         setFormData({ ...formData, image: base64Data });
+        console.log("Base64 Image:", base64Data);
       });
     }
   };
+
   const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: "none",
-      }}
-      type="button"
-    >
+    <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
@@ -86,11 +95,10 @@ const Addproduct = () => {
       >
         Upload
       </div>
-    </button>
+    </div>
   );
-  // publishing form code
+
   const onFinish = (fieldsValue) => {
-    // Should format date value before submit.
     const values = {
       ...fieldsValue,
       "date-time-picker": fieldsValue["date-time-picker"].format(
@@ -99,40 +107,24 @@ const Addproduct = () => {
     };
     console.log("Received values of form: ", values);
   };
-  //redux code
-  const [formData, setFormData] = useState({
-    availability: "",
-    brand: "",
-    category: "",
-    description: "",
-    image: null,
-    name: "",
-    price: "",
-    currency: "",
-    unit: "",
-  });
 
   const dispatch = useDispatch();
-  
+  const router = useRouter();
+
   const handleInputChange = (e) => {
-    console.log("form data", formData);
     if (e && e.target) {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
-      console.log(name, value, "change");
     } else {
       console.log("Event or event target is undefined");
     }
   };
-  
+
   const handleDropDownChange = (name, value) => {
-    setFormData({ ...formData, [name]: value }); 
-    console.log(name, value, "change");
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFormSubmit = async () => {
-    console.log(formData, "hitting api");
-    console.log("imagr", imageUrl);
     const data = {
       availability: formData.availability,
       brand: formData.brand,
@@ -143,22 +135,25 @@ const Addproduct = () => {
       price: formData.price,
       currency: formData.currency,
       unit: formData.unit,
+      imageType: formData.imageType,
     };
+    console.log("Submitting Data: ", data);
     try {
-      console.log("data", data);
       const response = await axios.post("/product", data);
-      console.log("response", response);
-      if (response.status == 200) {
+      if (response.status === 200) {
         dispatch(setCreateProduct(data));
+        console.log(response);
+        router.push("/admin/products");
       }
     } catch (error) {
       console.log("error", error);
     }
   };
+
   const backToProducts = () => {
     router.push("/admin/products");
   };
-  const router = useRouter();
+
   return (
     <div className="p-8 flex flex-col ">
       <header className="flex gap-5">
@@ -169,7 +164,7 @@ const Addproduct = () => {
         <h1 className="font-bold text-2xl">Add Product</h1>
       </header>
       <main className="flex gap-8 justify-center">
-        <sectionleft className="w-[50%]">
+        <section className="w-[50%]">
           {/* title and description form  */}
           <Form
             requiredMark={false}
@@ -213,10 +208,34 @@ const Addproduct = () => {
           </Form>
 
           {/* image upload code */}
-
-          {/* <UploadMediafun /> */}
-          {/* upload media code */}
-          <div className="border-2 shadow-md h-[12rem] w-full  bg-white px-8 pt-3 mt-5 rounded-xl">
+          <div className="border-2 shadow-md h-[15rem] w-full  bg-white px-8 pt-3 mt-5 rounded-xl">
+            <Form
+          requiredMark={false}
+            >
+          <Col span={26}>
+              <Form.Item
+                label="Image Type"
+                name="imageType"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Image Type!",
+                  },
+                ]}
+              >
+                <Select
+                  className="border rounded-md border-black"
+                  placeholder="Select a option for Image Type"
+                  onChange={(value) => handleDropDownChange("imageType", value)}
+                  name="imageType"
+                  allowClear
+                >
+                  <Option value="image">image</Option>
+                  <Option value="png">png</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            </Form>
             <h1 className="text-md font-semibold mt-1">Media</h1>
             <div className="pl-[40%]">
               <Upload
@@ -224,7 +243,6 @@ const Addproduct = () => {
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
               >
@@ -232,19 +250,20 @@ const Addproduct = () => {
                   <Image
                     src={imageUrl}
                     alt="avatar"
-                    style={{
-                      width: "100%",
-                    }}
+                    width={100}
+                    height={100}
+                    style={{ width: "100%" }}
                   />
                 ) : (
                   uploadButton
                 )}
               </Upload>
+            
             </div>
-            <p className="pl-[30%]">Accepts images of type PNG/JPEG</p>
+            <p className="pl-[30%]">Accepts images of type PNG/Image</p>
+
           </div>
 
-          {/* <Pricing /> */}
           {/* pricing form code */}
           <div className="border-2 shadow-md w-full h-[19.5rem] bg-white px-8 pt-3 mt-5 rounded-xl">
             <h1 className="text-md font-semibold mt-1">Pricing</h1>
@@ -267,11 +286,13 @@ const Addproduct = () => {
                       },
                     ]}
                   >
-                     <Select
+                    <Select
                       className="border rounded-md border-black"
                       placeholder="Select a option for Category"
-                      onChange={(value) => handleDropDownChange("category", value)} name="category"
-                      
+                      onChange={(value) =>
+                        handleDropDownChange("category", value)
+                      }
+                      name="category"
                       allowClear
                     >
                       <Option value="VEGETABLES">VEGETABLES</Option>
@@ -279,7 +300,6 @@ const Addproduct = () => {
                       <Option value="FRUITS">FRUITS</Option>
                       <Option value="TESTING">TESTING</Option>
                     </Select>
-                   
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -317,8 +337,8 @@ const Addproduct = () => {
                     <Select
                       className="border rounded-md border-black"
                       placeholder="Select a option for UNIT"
-                      onChange={(value) => handleDropDownChange("unit", value)} name="unit"
-                      
+                      onChange={(value) => handleDropDownChange("unit", value)}
+                      name="unit"
                       allowClear
                     >
                       <Option value="kg">KG</Option>
@@ -340,13 +360,15 @@ const Addproduct = () => {
                     <Select
                       className="border rounded-md border-black"
                       placeholder="Select a option for availability"
-                      onChange={(value) => handleDropDownChange("availability", value)} name="availability"
+                      onChange={(value) =>
+                        handleDropDownChange("availability", value)
+                      }
+                      name="availability"
                       allowClear
                     >
                       <Option value="in stock">in stock</Option>
-                      <Option value="out stock">out of stock</Option>
+                      <Option value="out of stock">out of stock</Option>
                     </Select>
-                  
                   </Form.Item>
                 </Col>
               </Row>
@@ -392,27 +414,22 @@ const Addproduct = () => {
               </Row>
             </Form>
           </div>
-        </sectionleft>
-        <sectionright className="w-[25%]">
-          {/* <Status /> */}
-          {/* status form code */}
+        </section>
+        <section className="w-[25%]">
           <div className="border-2 shadow-md h-[6.75rem] bg-white px-8 pt-3 rounded-xl">
-            <h1 className="text-md font-semibold mt-1">Status</h1>{" "}
+            <h1 className="text-md font-semibold mt-1">Status</h1>
             <Form className="mt-2 border-black">
-              {" "}
               <Form.Item>
                 <Select>
-                  <Select.Option value="demo">Active</Select.Option>{" "}
-                  <Select.Option value="demo">Draft</Select.Option>{" "}
-                </Select>{" "}
+                  <Select.Option value="active">Active</Select.Option>
+                  <Select.Option value="draft">Draft</Select.Option>
+                </Select>
               </Form.Item>
             </Form>
           </div>
-          {/* <Publishing /> */}
           <div className="border-2 shadow-md h-[20rem] bg-white px-8 pt-3 mt-5 rounded-xl">
             <h1 className="text-md font-semibold mt-1">Publishing</h1>
             <p className="font-semibold">Sales channels</p>
-
             <ul>
               <li type="circle">
                 Online Store
@@ -454,7 +471,7 @@ const Addproduct = () => {
               <li type="circle">India and International</li>
             </ul>
           </div>
-        </sectionright>
+        </section>
       </main>
       <br />
       <br />
@@ -465,7 +482,6 @@ const Addproduct = () => {
             color: "white",
             backgroundColor: "black",
             borderRadius: "5px",
-            // padding: "8px 0px 0px 90px",
             width: "40%",
           }}
           onClick={handleFormSubmit}
@@ -477,4 +493,5 @@ const Addproduct = () => {
     </div>
   );
 };
+
 export default Addproduct;
