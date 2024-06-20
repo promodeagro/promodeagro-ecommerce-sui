@@ -6,6 +6,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig = {
   distDir: 'build', // Custom build output directory
+  output: 'export',
 
   images: {
     domains: [
